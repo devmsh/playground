@@ -35,6 +35,16 @@ Once I finish playing with the code and stabilize the features, I will publish i
 
 Currently, you can ready the [tests](https://github.com/devmsh/playground/tree/master/tests/Feature), once the package is published, I will document all the features and customization options both from Laravel side and package side.
 
+```
+POST: /api/register {name,email,password,device_name}
+POST: /api/login {email,password,device_name}
+GET: /api/user
+POST: /api/logout # logout from all devices
+POST: /api/logout {device_name} # logout from this devices
+POST: /api/logout {device_name,other_devices:true} # logout from all devices
+
+```
+
 ## Have any ideas?
 
 You can open new issue here on github, or you can contact me at [devmsh](https://twitter.com/devmsh).
