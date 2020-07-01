@@ -39,10 +39,7 @@ Currently, you can ready the [tests](https://github.com/devmsh/playground/tree/m
 POST: /api/register {name,email,password,device_name}
 POST: /api/login {email,password,device_name}
 GET: /api/user
-POST: /api/logout # logout from all devices
-POST: /api/logout {device_name} # logout from this devices
-POST: /api/logout {device_name,other_devices:true} # logout from all devices
-
+POST: /api/logout {from_other:true|false | from_all:true|false}
 ```
 
 ## Have any ideas?

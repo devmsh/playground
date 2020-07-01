@@ -29,7 +29,6 @@ class LoginController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      * @return void
      */
     public function __construct()
@@ -103,21 +102,21 @@ class LoginController extends Controller
 
     protected function removeTokens(Request $request): int
     {
-        $tokens = PersonalAccessToken::whereHasMorph(
-            'tokenable',
-            [User::class],
-            function ($query) {
-                return $query->where('id', Auth::id());
-            }
-        );
+        $currentToken = Auth::user()->currentAccessToken();
 
-        if ($request->device_name) {
-            $tokens = $request->get('other_devices', false) ?
-                $tokens->where('name', '!=', $request->device_name)
-                : $tokens->where('name', $request->device_name);
+        $tokens = Auth::user()->tokens();
+
+        if ($request->from_all) {
+            return $tokens->delete();
         }
 
-        return $tokens->delete();
+        if ($request->from_other) {
+            return $tokens
+                ->where('id', '!=', $currentToken->id)
+                ->delete();
+        }
+
+        return $currentToken->delete();
     }
 
     protected function credentials(Request $request)
