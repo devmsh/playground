@@ -29,6 +29,22 @@ class LoginTest extends TestCase
         ])->assertOk();
     }
 
+    public function test_login_by_mobile()
+    {
+        factory(User::class)->create([
+            'name' => 'test',
+            'mobile' => '+972599999999',
+            'password' => Hash::make('12345678'),
+            'active' => 1,
+        ]);
+
+        $this->postJson('api/login', [
+            'mobile' => '+972599999999',
+            'password' => '12345678',
+            'device_name' => 'test'
+        ])->assertOk();
+    }
+
     public function test_login_attemps()
     {
         factory(User::class)->create([
@@ -49,6 +65,29 @@ class LoginTest extends TestCase
             'email' => 'test@laravel.com',
             'password' => '12345678',
             'device_name' => 'test'
-        ])->dump()->assertStatus(429);
+        ])->assertStatus(429);
+    }
+
+    public function test_login_attemps_by_mobile()
+    {
+        factory(User::class)->create([
+            'name' => 'test',
+            'mobile' => '+972599999999',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        foreach (range(1, 3) as $x) {
+            $this->postJson('api/login', [
+                'mobile' => '+972599999999',
+                'password' => '123456781',
+                'device_name' => 'test'
+            ]);
+        }
+
+        $this->postJson('api/login', [
+            'mobile' => '+972599999999',
+            'password' => '12345678',
+            'device_name' => 'test'
+        ])->assertStatus(429);
     }
 }

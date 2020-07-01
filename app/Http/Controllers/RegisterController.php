@@ -26,7 +26,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      * @return void
      */
     public function __construct()
@@ -36,12 +35,11 @@ class RegisterController extends Controller
 
     /**
      * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $user
      * @return mixed
      */
-    protected function registered(Request $request,User  $user)
+    protected function registered(Request $request, User $user)
     {
         $token = $user->createToken($request->device_name);
 
@@ -58,12 +56,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make($data, array_merge([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'device_name' => 'required'
-        ]);
+        ], $this->usernameRules($data)));
     }
 
     /**
@@ -75,8 +72,25 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'mobile' => $data['mobile'] ?? null,
+            'email' => $data['email'] ?? null,
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Return the list of validation rules as specified in the lock config
+     * @param array $data
+     * @return array
+     */
+    protected function usernameRules(array $data): array
+    {
+        $fields = array_intersect(array_keys($data), config('lock.username_fields'));
+
+        $username = array_pop($fields);
+
+        return [
+            $username => config('lock.username_registration_validation')[$username]
+        ];
     }
 }
