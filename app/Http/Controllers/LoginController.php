@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class LoginController extends Controller
 {
@@ -117,6 +115,13 @@ class LoginController extends Controller
         }
 
         return $currentToken->delete();
+    }
+
+    public function username()
+    {
+        $username = array_intersect(array_keys(request()->all()), config('lock.username_fields'));
+
+        return array_pop($username);
     }
 
     protected function credentials(Request $request)

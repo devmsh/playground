@@ -55,4 +55,21 @@ class RegistrationTest extends TestCase
         ])->assertStatus(400);
 
     }
+
+    public function test_registration_by_mobile()
+    {
+        $this->postJson('api/register', [
+            'name' => 'test',
+            'mobile' => '+972599999999',
+            'password' => '12345678',
+            'password_confirmation' => '12345678',
+            'device_name' => 'test'
+        ])->assertStatus(201);
+
+        $this->assertDatabaseHas('personal_access_tokens', [
+            'name' => 'test',
+            "tokenable_type" => User::class,
+            "tokenable_id" => 1,
+        ]);
+    }
 }
