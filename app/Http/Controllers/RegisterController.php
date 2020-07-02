@@ -46,7 +46,7 @@ class RegisterController extends Controller
         return new Response([
             'user' => $user,
             'token' => $token->plainTextToken,
-        ], 201);
+        ], Response::HTTP_CREATED);
     }
 
     /**

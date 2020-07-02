@@ -22,7 +22,7 @@ class FailedIfAuthenticated
         if (Auth::guard($guard)->check()) {
             return new Response([
                 "message" => "Already authenticated"
-            ],400);
+            ],Response::HTTP_BAD_REQUEST);
         }
 
         return $next($request);

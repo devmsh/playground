@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
@@ -65,7 +66,7 @@ class LoginTest extends TestCase
             'email' => 'test@laravel.com',
             'password' => '12345678',
             'device_name' => 'test'
-        ])->assertStatus(429);
+        ])->assertStatus(Response::HTTP_TOO_MANY_REQUESTS);
     }
 
     public function test_login_attemps_by_mobile()
@@ -88,6 +89,6 @@ class LoginTest extends TestCase
             'mobile' => '+972599999999',
             'password' => '12345678',
             'device_name' => 'test'
-        ])->assertStatus(429);
+        ])->assertStatus(Response::HTTP_TOO_MANY_REQUESTS);
     }
 }

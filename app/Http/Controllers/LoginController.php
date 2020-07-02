@@ -48,7 +48,7 @@ class LoginController extends Controller
         }
 
         return $request->wantsJson()
-            ? new Response('', 204)
+            ? new Response('', Response::HTTP_NO_CONTENT)
             : redirect()->intended($this->redirectPath());
     }
 
@@ -80,7 +80,7 @@ class LoginController extends Controller
         }
 
         return $request->wantsJson()
-            ? new Response('', 204)
+            ? new Response('', Response::HTTP_NO_CONTENT)
             : redirect('/');
     }
 

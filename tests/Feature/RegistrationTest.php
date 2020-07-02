@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
@@ -20,7 +21,7 @@ class RegistrationTest extends TestCase
             'password' => '12345678',
             'password_confirmation' => '12345678',
             'device_name' => 'test'
-        ])->assertStatus(201);
+        ])->assertStatus(Response::HTTP_CREATED);
 
         $this->assertDatabaseHas('personal_access_tokens', [
             'name' => 'test',
@@ -52,7 +53,7 @@ class RegistrationTest extends TestCase
             'password' => '12345678',
             'password_confirmation' => '12345678',
             'device_name' => 'test'
-        ])->assertStatus(400);
+        ])->assertStatus(Response::HTTP_BAD_REQUEST);
 
     }
 
@@ -64,7 +65,7 @@ class RegistrationTest extends TestCase
             'password' => '12345678',
             'password_confirmation' => '12345678',
             'device_name' => 'test'
-        ])->assertStatus(201);
+        ])->assertStatus(Response::HTTP_CREATED);
 
         $this->assertDatabaseHas('personal_access_tokens', [
             'name' => 'test',
