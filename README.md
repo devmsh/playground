@@ -21,9 +21,9 @@ The awesomeness of [Laravel Sanctum](https://laravel.com/docs/master/sanctum) me
 ### Planned
 - [X] Login by mobile
 - [ ] Verify mobile via SMS 
-- [ ] Anonymous login support
+- [X] Anonymous login support
 - [ ] Better device management
-- [ ] Support FCM Push notifications
+- [X] Support FCM Push notifications
 
 ### Methodology
 
@@ -72,6 +72,19 @@ Then you can directly send a login request without any credentials, but you must
 ```php
 POST: /api/login {device_name,type=anonymous}
 ```
+
+FCM Notification is also supported using `laravel-notification-channels/fcm`, all what you need to do is to specify the `FIREBASE_CREDENTIALS` in your .env as show in .env.example
+```
+FIREBASE_CREDENTIALS=/full/path/to/firebase_credentials.json
+```
+
+`AccountActivated` notification is available as a sample for you, and you can specify fccm_token both in Registration and Login requests
+
+```
+POST: /api/register {name,[email|mobile],password,device_name,fcm_token}
+POST: /api/login {[email|mobile],password,device_name,fcm_token}
+```
+
 ## Have any ideas?
 
 You can open new issue here on github, or you can contact me at [devmsh](https://twitter.com/devmsh).

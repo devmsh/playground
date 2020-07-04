@@ -26,8 +26,7 @@ class AnonymousLoginTest extends TestCase
         Config::set('lock.anonymous_login',false);
 
         $this->postJson('api/login', [
-            'device_name' => 'test',
             'type' => 'anonymous'
-        ])->assertOk();
+        ])->assertJsonValidationErrors('email');
     }
 }
