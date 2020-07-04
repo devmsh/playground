@@ -1,6 +1,12 @@
 <?php
 
 return [
+
+    /**
+     * Enable or disable anonymous login
+     */
+    'anonymous_login' => true,
+
     /**
      * List of allowed username keys
      */

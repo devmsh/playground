@@ -22,7 +22,6 @@ class LoginTest extends TestCase
             'active' => 1,
         ]);
 
-        $this->withoutExceptionHandling();
         $this->postJson('api/login', [
             'email' => 'test@laravel.com',
             'password' => '12345678',
