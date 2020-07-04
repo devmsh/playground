@@ -65,7 +65,6 @@ class LogoutTest extends TestCase
 
         $this->assertEquals(3, $user->tokens()->count());
 
-        $this->withoutExceptionHandling();
         $this->postJson('api/logout', [
             'from_all' => true,
         ],[
