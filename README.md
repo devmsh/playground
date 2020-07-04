@@ -62,6 +62,16 @@ You can customize the validation rules to be used in the registration process by
 ]
 ```
 
+To enable Anonymous login feature, you must change `anonymous_login` in `lock.php` config file.
+
+```php
+'anonymous_login' => true,
+```
+
+Then you can directly send a login request without any credentials, but you must send a special payload;
+```php
+POST: /api/login {device_name,type=anonymous}
+```
 ## Have any ideas?
 
 You can open new issue here on github, or you can contact me at [devmsh](https://twitter.com/devmsh).

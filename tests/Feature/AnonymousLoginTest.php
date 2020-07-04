@@ -28,6 +28,6 @@ class AnonymousLoginTest extends TestCase
         $this->postJson('api/login', [
             'device_name' => 'test',
             'type' => 'anonymous'
-        ])->dump()->assertOk();
+        ])->assertOk();
     }
 }
