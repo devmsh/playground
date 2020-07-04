@@ -120,6 +120,12 @@ class LoginController extends Controller
     {
         $token = $user->createToken($request->device_name);
 
+        if ($request->fcm_token) {
+            $user->update([
+                'fcm_token' => $request->fcm_token,
+            ]);
+        }
+
         return new Response([
             'user' => $user,
             'token' => $token->plainTextToken,
@@ -177,7 +183,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        if($this->isAnonymousLogin()) return "";
+        if ($this->isAnonymousLogin()) return "";
 
         $username = array_intersect(array_keys(request()->all()), config('lock.username_fields'));
 

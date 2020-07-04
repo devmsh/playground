@@ -59,7 +59,8 @@ class RegisterController extends Controller
         return Validator::make($data, array_merge([
             'name' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'device_name' => 'required'
+            'device_name' => 'required',
+            'fcm_token' => 'nullable'
         ], $this->usernameRules($data)));
     }
 
@@ -74,6 +75,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'mobile' => $data['mobile'] ?? null,
             'email' => $data['email'] ?? null,
+            'fcm_token' => $data['fcm_token'] ?? null,
             'password' => Hash::make($data['password']),
         ]);
     }

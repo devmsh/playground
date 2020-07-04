@@ -19,7 +19,7 @@ class RegistrationTest extends TestCase
             'email' => 'test@laravel.com',
             'password' => '12345678',
             'password_confirmation' => '12345678',
-            'device_name' => 'test'
+            'device_name' => 'test',
         ])->assertStatus(201);
 
         $this->assertDatabaseHas('personal_access_tokens', [
