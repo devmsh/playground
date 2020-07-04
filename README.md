@@ -17,13 +17,16 @@ The awesomeness of [Laravel Sanctum](https://laravel.com/docs/master/sanctum) me
 - [X] Logout from device, other devices, and all devices
 - [X] Custom login (e.g. active users only)
 - [X] Last user activity via Token
+- [X] Login by mobile
+- [X] Anonymous login support
+- [X] Support FCM Push notifications
 
 ### Planned
-- [X] Login by mobile
-- [ ] Verify mobile via SMS 
-- [X] Anonymous login support
+- [ ] Verify email
+- [ ] Forget password 
+- [ ] Verify mobile  
 - [ ] Better device management
-- [X] Support FCM Push notifications
+- [ ] Support password-less login
 
 ### Methodology
 
